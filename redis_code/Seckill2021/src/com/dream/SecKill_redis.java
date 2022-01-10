@@ -4,6 +4,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,11 +14,13 @@ import java.util.List;
 public class SecKill_redis {
 
     public static void main(String[] args) {
-        Jedis jedis = new Jedis("192.168.31.60", 6379);
+        Jedis jedis = new Jedis("192.168.1.62", 6379);
         System.out.println(jedis.ping());
         jedis.close();
 
     }
+    // 测试的
+
 
     //秒杀过程
     public static boolean doSecKill(String uid,String prodid){
@@ -27,11 +30,13 @@ public class SecKill_redis {
         }
 
         //2 连接redis
-//        Jedis jedis = new Jedis("192.168.31.60", 6379);
+//        Jedis jedis = new Jedis("192.168.1.62", 6379);
 
         //通过连接池得到 jedis对象
+
         JedisPool jedisPoolInstance = JedisPoolUtil.getJedisPoolInstance();
         Jedis jedis = jedisPoolInstance.getResource();
+
 
         //3 拼接key
         //3.1 库存 key
@@ -86,8 +91,6 @@ public class SecKill_redis {
 //        jedis.decr(kcKey);
         //7.2 把秒杀成功用户添加到清单里面
 //        jedis.sadd(userKey,uid);
-
-
 
         System.out.println("秒杀成功了...");
         jedis.close();

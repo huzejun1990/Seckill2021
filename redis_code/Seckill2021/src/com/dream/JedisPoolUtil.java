@@ -28,7 +28,8 @@ public class JedisPoolUtil {
                     poolConfig.setBlockWhenExhausted(true);
                     poolConfig.setTestOnBorrow(true);   //ping PONG
 
-                    jedisPool = new JedisPool(poolConfig, "192.168.31.60", 6379, 60000);
+//                    jedisPool = new JedisPool(poolConfig, "192.168.31.60", 6379, 60000);
+                    jedisPool = new JedisPool(poolConfig, "192.168.1.62", 6379, 60000);
                 }
             }
         }

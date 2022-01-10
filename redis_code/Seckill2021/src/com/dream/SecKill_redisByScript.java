@@ -32,7 +32,7 @@ public class SecKill_redisByScript {
     static String secKillScript ="local userid=KEYS[1];\r\n" +
             "local prodid=KEYS[2];\r\n" +
             "local qtkey='sk:'..prodid..\":qt\";\r\n" +
-            "local usersKey='sk:'..prodid..\":usr\";\r\n" +
+            "local usersKey='sk:'..prodid..\":user\";\r\n" +
             "local userExists=redis.call(\"sismember\",usersKey,userid);\r\n" +
             "if tonumber(userExists)==1 then \r\n" +
             "   return 2;\r\n" +
@@ -47,7 +47,7 @@ public class SecKill_redisByScript {
             "return 1" ;
 
     static String secKillScript2 =
-            "local userExists=redis.call(\"sismember\",\"{sk}:0101:usr\",userid);\r\n" +
+            "local userExists=redis.call(\"sismember\",\"{sk}:0101:user\",userid);\r\n" +
                     " return 1";
 
     public static boolean doSecKill(String uid,String prodid){
