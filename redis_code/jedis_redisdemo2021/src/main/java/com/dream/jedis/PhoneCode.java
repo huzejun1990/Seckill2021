@@ -11,16 +11,21 @@ import java.util.Random;
 public class PhoneCode {
     public static void main(String[] args) {
         //模拟验证码发送
-//        verifyCode("13800138000");
+        verifyCode("13800138000");
 
-       getRedisCode("13800138000","312125"); //438247
+   //    getRedisCode("13800138000","312125"); //438247
+            // 332086  801875 681327 438685 455296
+//        getRedisCode("13800138000","801875");
+
+/*        final String code = getCode();
+        System.out.println(code);*/
 
     }
 
     //3 验证码校验
     public static void getRedisCode(String phone,String code){
         //从redis中获取
-        Jedis jedis = new Jedis("192.168.31.60",6379);
+        Jedis jedis = new Jedis("192.168.1.62",6379);
         //验证码key
         String codekey = "VerifyCode" + phone + ":code";
         String redisCode = jedis.get(codekey);
@@ -37,7 +42,7 @@ public class PhoneCode {
 
     //2 每个手机每天只能发送三次，验证码放到 redis中，设置过期时间120秒
     public static void verifyCode(String phone){
-        Jedis jedis = new Jedis("192.168.31.60",6379);
+        Jedis jedis = new Jedis("192.168.1.62",6379);
 
         //拼接 key
         //手机发送次数 key
@@ -59,6 +64,7 @@ public class PhoneCode {
             //发送三次，不能再发送
             System.out.println("今天的发送次数已经超三次了");
             jedis.close();
+            return;  // 加return 超3次，不再生成新的验证码
         }
 
         //发送的验证码，放到redis中
